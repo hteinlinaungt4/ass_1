@@ -1,23 +1,35 @@
-import List from './components/List'
-import Form from './components/Form'
-import { useState } from 'react'
+import { useReducer } from "react"
 
 function App() {
-  const [userdata, setuserdata] = useState([])
-  const handleform = (data) => {
-    setuserdata([...userdata,data])
+
+  const initialState = {
+    count : 0
   }
+
+  const reducer = (state,{type,payload})=>{
+      switch (type) {
+        case "plus":
+          return {
+            ...state,
+            count : state.count + 1,
+          };
+          case "minus":
+            return {
+              ...state,
+              count : state.count - 1,
+            };
+      
+        default: return state.count;
+      }
+  }
+  
+  const [state, dispatch] = useReducer(reducer,initialState)
   return (
-   <div className='container justify-center mx-auto flex h-screen items-center'>
     <div>
-     {
-        userdata.map((value,index)=>(
-          <List key={index} data={value}></List>
-        ))
-     }
-      <Form handleform={handleform}></Form>
+      <button onClick={()=>{dispatch({type : "plus"})}}>+</button>
+      <p>{state.count}</p>
+      <button onClick={()=>{dispatch({type : "minus"})}}>-</button>
     </div>
-   </div>
   )
 }
 
