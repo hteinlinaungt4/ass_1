@@ -1,9 +1,9 @@
 
 function List({data}) {
   return (
-    <div className="bg-white shadow">
-      <h1>{data.name}</h1>
-      <h1>{data.address}</h1>
+    <div>
+      <h1>List:{data.title}</h1>
+      <h1>ID:{data.id}</h1>
     </div>
   )
 }
